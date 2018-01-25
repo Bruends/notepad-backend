@@ -1,10 +1,13 @@
 const mongoose = require('../config/database');
 const bcrypt = require('bcrypt');
+const { isEmail } = require('validator');
 
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
+    unique: true,
     required: true,
+    validate: [isEmail, 'invalid email'],
   },
 
   password: {
@@ -14,19 +17,19 @@ const UserSchema = new mongoose.Schema({
   },
 
   notes: [{
-    title: { type: String, required: true },
+    title: String,
     text: String,
     createdAt: { type: Date, default: Date.now },
   }],
 
 });
 
-UserSchema.pre('Save', async function (next) {
+UserSchema.pre('save', async function (next) {
   const hash = await bcrypt.hash(this.password, 8);
   this.password = hash;
   next();
 });
 
-const User = new mongoose.Model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 module.exports = User;
