@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const routes = require('../routes/');
+const userRoutes = require('../controllers/auth');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(routes);
+app.use('/auth', userRoutes);
 
 module.exports = app;
