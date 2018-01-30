@@ -19,9 +19,7 @@ const UserSchema = new mongoose.Schema({
   notes: [{
     title: String,
     text: String,
-    createdAt: { type: Date, default: Date.now },
   }],
-
 });
 
 UserSchema.pre('save', async function (next) {

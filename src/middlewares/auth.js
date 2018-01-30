@@ -2,18 +2,24 @@ const jwt = require('jsonwebtoken');
 const { secret } = require('../config/secret.json');
 
 module.exports = async (req, res, next) => {
-  const token = req.headers.authorization;
+  const auth = req.headers.authorization;
 
-  if (!token) {
+  if (!auth) {
     return res.status(403).send({ error: 'no token provided' });
   }
 
-  jwt.verify(token, secret, (err, decoded) => {
+  const [scheme, token] = auth.split(' ');
+  if (!scheme && !token) {
+    return res.status(401).send({ error: 'invalid token' });
+  }
+
+  await jwt.verify(token, secret, (err, decoded) => {
     if (err) {
-      return res.status(401).send({ error: 'invalid token' });
+      console.log(token);
+      return res.status(401).send({ error: 'wrong token' });
     }
 
-    req.userEmail = decoded.email;
-    return next();
+    req.email = decoded.email;
+    next();
   });
 };
