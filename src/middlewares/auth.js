@@ -15,11 +15,10 @@ module.exports = async (req, res, next) => {
 
   await jwt.verify(token, secret, (err, decoded) => {
     if (err) {
-      console.log(token);
       return res.status(401).send({ error: 'wrong token' });
     }
 
     req.email = decoded.email;
-    next();
+    return next();
   });
 };
