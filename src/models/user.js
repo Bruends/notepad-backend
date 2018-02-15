@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema({
   }],
 });
 
+// encripta a senha antes de salvar o novo usuário
 UserSchema.pre('save', async function (next) {
   const hash = await bcrypt.hash(this.password, 8);
   this.password = hash;

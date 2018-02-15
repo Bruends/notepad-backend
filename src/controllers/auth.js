@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const userModel = require('../models/user');
 const { secret } = require('../config/secret.json');
 
+// gera token
 const generateToken = async (params = {}, secretKey) => {
   const token = await jwt.sign(params, secretKey, { expiresIn: 86400 });
   return token;
@@ -31,7 +32,7 @@ router.post('/authenticate', async (req, res) => {
   });
 });
 
-// registro
+// registra novo usuário
 router.post('/register', async (req, res) => {
   const { email, password } = req.body;
 
