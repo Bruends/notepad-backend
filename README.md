@@ -15,8 +15,8 @@ the server will listen in `localhost:3000`
 
 ### auth endpoints:
 
-register user:
-> POST  &nbsp;&nbsp; /auth/register/
+##### register user:
+> POST  &nbsp;&nbsp; /auth/register
 
 and send body with the Json in this format:
 
@@ -27,8 +27,8 @@ and send body with the Json in this format:
 }
 ```
 
-Return the JWT Token:
-> POST  /auth/authenticate/
+##### Return the JWT Token:
+> POST  /auth/authenticate
 
 and send the body with the json in this format:
 
@@ -49,10 +49,10 @@ need a header with the token from auth route in this format:
 ```
 
 ##### return all notes from user:
-> GET &nbsp;&nbsp; /notes/
+> GET &nbsp;&nbsp; /notes
 
 ##### add note
-> POST &nbsp;&nbsp; /notes/
+> POST &nbsp;&nbsp; /notes
 
 and send the body with the json in this format:
 
@@ -64,7 +64,7 @@ and send the body with the json in this format:
 ```
 
 ##### update note:
-> PUT &nbsp;&nbsp; /notes/
+> PUT &nbsp;&nbsp; /notes
 
 and send the body with the json in this format:
 
@@ -77,7 +77,7 @@ and send the body with the json in this format:
 ```
 
 ##### delete Note
-> DELETE &nbsp;&nbsp; /note/
+> DELETE &nbsp;&nbsp; /notes
 
 and send the body with the json in this format:
 
