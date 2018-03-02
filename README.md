@@ -59,7 +59,7 @@ and send the body with the json in this format:
 ```
 {
     title: String, (required)
-    password: String
+    text: String
 }
 ```
 
@@ -72,7 +72,7 @@ and send the body with the json in this format:
 {
     id: String, (required)
     title: String, (required)
-    password: String
+    text: String
 }
 ```
 
