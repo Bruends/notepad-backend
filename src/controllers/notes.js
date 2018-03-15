@@ -61,9 +61,10 @@ router.put('/', async (req, res) => {
 });
 
 
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   const { email } = req;
-  const { id } = req.body;
+  const id = req.params.id;
+  console.log(id);
   try {
     const { notes } = await userModel.findOne({ email });
 
