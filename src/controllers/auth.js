@@ -54,10 +54,14 @@ router.post('/register', async (req, res) => {
     });
   } catch (err) {
     if (err.name === 'ValidationError') {
-      return res.status(400).send({ error: 'insert a valid e-mail' });
+      return res.status(400).send({ error: 'Insert a valid e-mail' });
     }
 
-    return res.status(400).send({ error: err });
+    if (err.code === 11000) {
+      return res.status(400).send({ error: 'E-mail already registered' });
+    }
+
+    return res.status(400).send({ error: 'Error on register' });
   }
 });
 
