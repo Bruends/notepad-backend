@@ -1,20 +1,19 @@
 const router = require('express').Router();
 const userModel = require('../models/user');
 
-// retorna todas as notas do usuário em um array de objetos
+// get all notes route
 router.get('/', async (req, res) => {
   const { email } = req;
   const { notes } = await userModel.findOne({ email });
   return res.send({ notes });
 });
 
-// adiciona nova nota
+// save a route
 router.post('/', async (req, res) => {
   const { email } = req;
   const { title, text } = req.body;
 
-  // caso não tenha titulo
-  // retorna com erro
+  // if doest have a title, return error
   if (!title) {
     return res.status(400).send({ error: 'Insert the Title' });
   }
@@ -29,7 +28,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// altera nota
+// update route
 router.put('/', async (req, res) => {
   const { email } = req;
   const { id, title, text } = req.body;
@@ -41,9 +40,10 @@ router.put('/', async (req, res) => {
   try {
     const { notes } = await userModel.findOne({ email });
 
-    // cria novo array com as notas antigas e a nota qm questão alterada
+    // create a new array with the updated note
     const newNotes = notes.map((note) => {
-      if (note._id == id) {
+      const { _id: noteId } = note;
+      if (noteId == id) {
         return {
           _id: note._id,
           title,
@@ -60,17 +60,19 @@ router.put('/', async (req, res) => {
   }
 });
 
-
+// delete route
 router.delete('/:id', async (req, res) => {
   const { email } = req;
   const { id } = req.params;
   try {
     const { notes } = await userModel.findOne({ email });
 
-    // cria novo array com todas as notas exceto a q vai ser excluida
-    const newNotes = notes.filter(note => note._id != id);
+    // create a new array without the selected note
+    const newNotes = notes.filter((note) => {
+      const { _id: noteId } = note;
+      return noteId != id;
+    });
 
-    // salva novo array de notas
     await userModel.findOne({ email }).update({ $set: { notes: newNotes } });
     return res.send(newNotes);
   } catch (err) {

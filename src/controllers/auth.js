@@ -5,13 +5,13 @@ const jwt = require('jsonwebtoken');
 const userModel = require('../models/user');
 const { secret } = require('../config/secret.json');
 
-// gera token
+// generate JWT token
 const generateToken = async (params = {}, secretKey) => {
   const token = await jwt.sign(params, secretKey, { expiresIn: 86400 });
   return token;
 };
 
-// rota de autenticação
+// auth routes
 router.post('/authenticate', async (req, res) => {
   const { email, password } = req.body;
 
@@ -26,13 +26,13 @@ router.post('/authenticate', async (req, res) => {
     return res.status(400).send({ error: 'invalid password' });
   }
 
-  res.send({
+  return res.send({
     user,
     token: await generateToken({ email: user.email }, secret),
   });
 });
 
-// registra novo usuário
+// Register a new user
 router.post('/register', async (req, res) => {
   const { email, password } = req.body;
 

@@ -10,6 +10,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+// routes
 app.use('/auth', userRoutes);
 app.use('/notes', authMiddleware);
 app.use('/notes', notesRoutes);
