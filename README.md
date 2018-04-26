@@ -70,7 +70,7 @@ and send the body with the json in this format:
 
 ```
 {
-    id: String, (required)
+    _id: String, (required)
     title: String, (required)
     text: String
 }
