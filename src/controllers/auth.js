@@ -26,6 +26,8 @@ router.post('/authenticate', async (req, res) => {
     return res.status(400).send({ error: 'invalid password' });
   }
 
+  user.password = null;
+
   return res.send({
     user,
     token: await generateToken({ email: user.email }, secret),
