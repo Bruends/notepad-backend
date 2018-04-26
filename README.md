@@ -77,12 +77,7 @@ and send the body with the json in this format:
 ```
 
 ##### delete Note
-> DELETE &nbsp;&nbsp; /notes
+> DELETE &nbsp;&nbsp; /notes/:note_id
 
-and send the body with the json in this format:
 
-```
-{
-    id: String (required)
-}
-```
+
